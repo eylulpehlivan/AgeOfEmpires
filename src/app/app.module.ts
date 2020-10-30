@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     UnitsComponent,
     UnitDetailComponent,
     HomeComponent,
+    NavComponent,
       
 
   ],
