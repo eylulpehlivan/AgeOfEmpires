@@ -14,6 +14,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavComponent } from './nav/nav.component';
 
+// Forms Module - for ngModel
+
+
 @NgModule({
   declarations: [
     AppComponent,
