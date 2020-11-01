@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavComponent } from './nav/nav.component';
+import { AppStateModule } from "./_state/state.module";
+import { HttpClientModule } from "@angular/common/http";
 
 // Forms Module - for ngModel
 
@@ -30,11 +32,9 @@ import { NavComponent } from './nav/nav.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers
-    }),
-    StoreRouterConnectingModule.forRoot({}),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppStateModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

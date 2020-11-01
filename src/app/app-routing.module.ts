@@ -4,13 +4,14 @@ import { HomeComponent } from './pages/home/home.component';
 import {UnitsComponent} from './pages/units/units.component';
 import {UnitDetailComponent} from './pages/unit-detail/unit-detail.component'
 
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'units', component: UnitsComponent},
   { path: 'unit-detail/:id', component: UnitDetailComponent},
-
-];
+  { path:'**' , redirectTo:'/home'}
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

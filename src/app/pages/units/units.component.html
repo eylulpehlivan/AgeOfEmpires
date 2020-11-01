@@ -1,36 +1,44 @@
 <div role="main" class="container">
 
 
-
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     <h2 class="border-bottom border-gray pb-2 mb-0">Ages</h2>
-    <form class="multi-range-field my-5 pb-5">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button"  class="btn btn-secondary active">All</button>
-        <button type="button" class="btn btn-secondary">Dark</button>
-        <button type="button" class="btn btn-secondary">Fedual</button>
-        <button type="button" class="btn btn-secondary">Castle</button>
-        <button type="button" class="btn btn-secondary">Imperial</button>
-      </div>
-    </form>
-    
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-secondary " >All</button>
+      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Dark')">Dark</button>
+      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Feudal')">Feudal</button>
+      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Castle')">Castle</button>
+      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Imperial')">Imperial</button>
+    </div>
+
+
 
     <h2 class="border-bottom border-gray pb-2 mb-0">Costs</h2>
-    <form class="multi-range-field my-5 pb-5" style="display: flex;">
-      <input id="multi9" class="" type="checkbox" />
+    <div style="display: flex;margin-top: 20px;">
+      <input id="woodCheck" class="" type="checkbox" />
       <span>Wood</span>
-      <input id="multi10" style="width: 70%;" class="multi-range" type="range" />
-    </form>
-    <form class="multi-range-field my-5 pb-5" style="display: flex;">
-      <input id="multi9" class="" type="checkbox" />
+      <input type="range" style="width: 70%;" #ranger id="vol" name="vol" min="0" max="200"
+        (change)="getByCostWoodFilter(ranger.value)" >
+      <span id="rangevalue"> Value: <span id="valuer">{{ranger.value}}</span></span>
+    </div>
+
+    <div style="display: flex;margin-top: 20px;">
+      <input id="foodCheck" class="" type="checkbox" />
       <span>Food</span>
-      <input id="multi11" style="width: 70%;" class="multi-range" type="range" />
-    </form>
-    <form class="multi-range-field my-5 pb-5" style="display: flex;">
-      <input id="multi9" class="" type="checkbox" />
+      <input type="range" style="width: 70%;" #ranger1 id="vol" name="vol" min="0" max="200"
+        (change)="getByCostFoodFilter(ranger.value)">
+      <span id="rangevalue1"> Value: <span id="valuer1">{{ranger1.value}}</span></span>
+    </div>
+
+    <div style="display: flex;margin-top: 20px;">
+      <input id="goldCheck" class="" type="checkbox" />
       <span>Gold</span>
-      <input id="multi12" style="width: 70%;" class="multi-range" type="range" />
-    </form>
+      <input type="range" style="width: 70%;" #ranger2 id="vol" name="vol" min="0" max="200"
+        (change)="getByCostGoldFilter(ranger2.value)">
+      <span id="rangevalue2"> Value: <span id="valuer">{{ranger2.value}}</span></span>
+    </div>
+
     <h2 class="border-bottom border-gray pb-2 mb-0">Units</h2>
 
     <div class="media text-muted pt-3">
@@ -49,7 +57,7 @@
             <th scope="row">{{item.id}}</th>
             <td>{{item.name}}</td>
             <td>{{item.age}}</td>
-            <td>Wood and Gold</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
