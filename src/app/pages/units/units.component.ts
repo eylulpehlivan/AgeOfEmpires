@@ -25,9 +25,14 @@ export class UnitsComponent implements OnInit {
   // public units: {}[] = units;
 
   units = [];
-  goldFilter = false;
-  foodFilter = false;
-  woodFilter = false;
+  goldFilter = true;
+  foodFilter = true;
+  woodFilter = true;
+  myFilter = {};
+  public age;
+  public wood;
+  public food;
+  public gold;
   
 
   constructor(
@@ -50,25 +55,40 @@ export class UnitsComponent implements OnInit {
     this.store.dispatch(new Save());
   }
 
-  getByCostWoodFilter(item) {
-    let test = {type : "Wood", value : item};
-    this.store.dispatch(new Update(test));
+  getByCostWoodFilter(item: any) {
+    this.wood = item;
+    this.changeFilter();
+    this.store.dispatch(new Update(this.myFilter));
   }
   getByCostFoodFilter(item) {
-    let test = {type : "Food", value : item};
-    this.store.dispatch(new Update(test));
+    this.food = item;
+    this.changeFilter();
+    this.store.dispatch(new Update(this.myFilter));
   }
   getByCostGoldFilter(item) {
-    let test = {type : "Gold", value : item};
-    this.store.dispatch(new Update(test));
+    this.gold = item;
+    this.changeFilter();
+    this.store.dispatch(new Update(this.myFilter));
   }
-  
+  changeFilter() {
+    this.myFilter = {
+      age: this.age,
+      wood: this.wood,
+      food: this.food,
+      gold: this.gold
+    }
+  }
 
-  getByAgeFilter(age: string) {
-  
-    let test = {type : "age", value : age};
-    this.store.dispatch(new Update(test));
+  getByAgeFilter(age?: string) {
+    this.age = age;
+    this.changeFilter();
+    if (age) {
+      this.store.dispatch(new Update(this.myFilter));
+    } else {
+      this.store.dispatch(new Save());
+    }
   }
+ 
 
   subscribeState() {
     this._service.character$.subscribe(response => {
@@ -86,6 +106,19 @@ export class UnitsComponent implements OnInit {
 
 
     })
+  }
+  filterCheck(cost:string){
+    if(cost == "wood"){
+      this.woodFilter = !this.woodFilter;
+      console.log(this.woodFilter);
+    }if(cost == "food"){
+      this.foodFilter = !this.foodFilter;
+      console.log(this.foodFilter);
+    }if(cost == "gold"){
+      this.goldFilter = !this.goldFilter;
+      console.log(this.goldFilter);
+    }
+    
   }
 
 

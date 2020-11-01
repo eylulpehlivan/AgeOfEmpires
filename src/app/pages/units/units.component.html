@@ -4,39 +4,46 @@
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     <h2 class="border-bottom border-gray pb-2 mb-0">Ages</h2>
 
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary " >All</button>
+    <div class="btn-group btn-filter" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter()">All</button>
       <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Dark')">Dark</button>
       <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Feudal')">Feudal</button>
       <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Castle')">Castle</button>
       <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Imperial')">Imperial</button>
     </div>
 
-
-
-    <h2 class="border-bottom border-gray pb-2 mb-0">Costs</h2>
-    <div style="display: flex;margin-top: 20px;">
-      <input id="woodCheck" class="" type="checkbox" />
-      <span>Wood</span>
-      <input type="range" style="width: 70%;" #ranger id="vol" name="vol" min="0" max="200"
-        (change)="getByCostWoodFilter(ranger.value)" >
-      <span id="rangevalue"> Value: <span id="valuer">{{ranger.value}}</span></span>
+    <div class="range-filter-div">
+      <h2 class="border-bottom border-gray pb-2 mb-0">Costs</h2>
+    <div class="filter-range">
+      <label class="switch">
+        <input type="checkbox" checked (change)="filterCheck('wood')">
+        <span class="slider round"></span>
+      </label>
+      <span class="range-span">Wood</span>
+      <input type="range" class="input-range" #ranger id="vol" name="vol" min="0" max="200"
+        (change)="getByCostWoodFilter(ranger.value)" [disabled]="!woodFilter" >
+      <span class="range-span" id="rangevalue"> Value: <span class="range-span" id="valuer">{{ranger.value}}</span></span>
     </div>
 
-    <div style="display: flex;margin-top: 20px;">
-      <input id="foodCheck" class="" type="checkbox" />
-      <span>Food</span>
-      <input type="range" style="width: 70%;" #ranger1 id="vol" name="vol" min="0" max="200"
-        (change)="getByCostFoodFilter(ranger.value)">
-      <span id="rangevalue1"> Value: <span id="valuer1">{{ranger1.value}}</span></span>
+    <div class="filter-range">
+      <label class="switch">
+        <input type="checkbox" [checked]="foodFilter" (change)="filterCheck('food')">
+        <span class="slider round"></span>
+      </label>      <span class="range-span">Food</span>
+      <input type="range" class="input-range" #ranger1 id="vol" name="vol" min="0" max="200"
+        (change)="getByCostFoodFilter(ranger1.value)" [disabled]="!foodFilter">
+      <span class="range-span" id="rangevalue1"> Value: <span class="range-span" id="valuer1">{{ranger1.value}}</span></span>
     </div>
 
-    <div style="display: flex;margin-top: 20px;">
-      <input id="goldCheck" class="" type="checkbox" />
-      <span>Gold</span>
-      <input type="range" style="width: 70%;" #ranger2 id="vol" name="vol" min="0" max="200"
-        (change)="getByCostGoldFilter(ranger2.value)">
-      <span id="rangevalue2"> Value: <span id="valuer">{{ranger2.value}}</span></span>
+    <div class="filter-range">
+      <label class="switch">
+        <input type="checkbox" [checked]="goldFilter" (change)="filterCheck('gold')">
+        <span class="slider round"></span>
+      </label>      <span class="range-span">Gold</span>
+      <input type="range" class="input-range" #ranger2 id="vol" name="vol" min="0" max="200"
+        (change)="getByCostGoldFilter(ranger2.value)" [disabled]="!goldFilter">
+      <span class="range-span" id="rangevalue2"> Value: <span class="range-span" id="valuer2">{{ranger2.value}}</span></span>
+    </div>
     </div>
 
     <h2 class="border-bottom border-gray pb-2 mb-0">Units</h2>
@@ -57,7 +64,14 @@
             <th scope="row">{{item.id}}</th>
             <td>{{item.name}}</td>
             <td>{{item.age}}</td>
-            <td></td>
+            <td>
+              <ul *ngIf="item?.cost !== null">
+                <li *ngIf="item?.cost?.Wood">Wood : {{item?.cost?.Wood}}</li>
+                <li *ngIf="item?.cost?.Food">Food : {{item?.cost?.Food}}</li>
+                <li *ngIf="item?.cost?.Gold">Gold : {{item?.cost?.Gold}}</li>
+
+              </ul>
+            </td>
           </tr>
         </tbody>
       </table>
