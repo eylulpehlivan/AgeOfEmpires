@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
-import units from '../../_files/units.json';
 declare var jQuery: any;
 
 import { CharacterService } from 'src/app/_services';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/_state/state';
 import { Save, Update } from 'src/app/_state/character.actions';
-
-
-
+import { AgeEnum } from 'src/app/_model/ages.enum';
+import { AGES } from "src/app/_mock/ages.mock";
+import { Cost } from 'src/app/_model/cost';
+import { COSTS } from 'src/app/_mock/costs.mock';
+import { CostEnum } from 'src/app/_model/costs.enum';
 
 @Component({
   selector: 'app-units',
@@ -19,57 +19,76 @@ import { Save, Update } from 'src/app/_state/character.actions';
 })
 
 export class UnitsComponent implements OnInit {
-  //title = 'json-file-read-angular';
-  // public results: any; // Change it private to public
-  // public mymessage: any;
-  // public units: {}[] = units;
 
-  units = [];
-  goldFilter = true;
-  foodFilter = true;
-  woodFilter = true;
+  ages: AgeEnum[] = AGES;
+  costs: Cost[] = COSTS;
+  units: any[];
   myFilter = {};
   public age;
   public wood;
   public food;
   public gold;
-  
 
   constructor(
     private _service: CharacterService,
     private store: Store<AppState>
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
-
+    this.costs = COSTS;
     this._service.getAllCharacter();
     this.subscribeState();
     this.save();
-   
-
-
   }
+
   save() {
     this.store.dispatch(new Save());
   }
 
-  getByCostWoodFilter(item: any) {
-    this.wood = item;
-    this.changeFilter();
-    this.store.dispatch(new Update(this.myFilter));
+  getByCost(cost: Cost) {
+
+    switch (cost.title) {
+      case CostEnum.Wood:
+        this.wood = cost.isActive ? cost.val : null;
+        this.changeFilter();
+        this.store.dispatch(new Update(this.myFilter));
+        break;
+      case CostEnum.Food:
+        this.food = cost.isActive ? cost.val : null;
+        this.changeFilter();
+        this.store.dispatch(new Update(this.myFilter));
+        break;
+      case CostEnum.Gold:
+        this.gold = cost.isActive ? cost.val : null;
+        this.changeFilter();
+        this.store.dispatch(new Update(this.myFilter));
+        break;
+      default:
+        break;
+    }
   }
-  getByCostFoodFilter(item) {
-    this.food = item;
+
+  getByAgeFilter(age: string) {
+    this.age = age;
     this.changeFilter();
-    this.store.dispatch(new Update(this.myFilter));
+    if (age === AgeEnum.All) {
+      this.store.dispatch(new Save());
+    } else {
+      this.store.dispatch(new Update(this.myFilter));
+    }
   }
-  getByCostGoldFilter(item) {
-    this.gold = item;
-    this.changeFilter();
-    this.store.dispatch(new Update(this.myFilter));
+
+  subscribeState() {
+    this._service.character$.subscribe(response => {
+      this.units = response.data ? response.data : [];
+    })
   }
+
+  switch(cost : Cost){
+    cost.isActive = !cost.isActive;
+    this.getByCost(cost)
+  }
+
   changeFilter() {
     this.myFilter = {
       age: this.age,
@@ -78,49 +97,4 @@ export class UnitsComponent implements OnInit {
       gold: this.gold
     }
   }
-
-  getByAgeFilter(age?: string) {
-    this.age = age;
-    this.changeFilter();
-    if (age) {
-      this.store.dispatch(new Update(this.myFilter));
-    } else {
-      this.store.dispatch(new Save());
-    }
-  }
- 
-
-  subscribeState() {
-    this._service.character$.subscribe(response => {
-      
-
-      this.units = [];
-      if(response.data === null) {
-      
-      } else {
-        response.data.forEach(element => {
-          this.units.push(element);
-        });
-      }
-     
-
-
-    })
-  }
-  filterCheck(cost:string){
-    if(cost == "wood"){
-      this.woodFilter = !this.woodFilter;
-      console.log(this.woodFilter);
-    }if(cost == "food"){
-      this.foodFilter = !this.foodFilter;
-      console.log(this.foodFilter);
-    }if(cost == "gold"){
-      this.goldFilter = !this.goldFilter;
-      console.log(this.goldFilter);
-    }
-    
-  }
-
-
-
 }

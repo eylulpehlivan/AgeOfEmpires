@@ -2,48 +2,27 @@
 
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h2 class="border-bottom border-gray pb-2 mb-0">Ages</h2>
+    <h2  class="hages border-bottom border-gray pb-2 mb-0">Ages</h2>
 
     <div class="btn-group btn-filter" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter()">All</button>
-      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Dark')">Dark</button>
-      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Feudal')">Feudal</button>
-      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Castle')">Castle</button>
-      <button type="button" class="btn btn-secondary" (click)="getByAgeFilter('Imperial')">Imperial</button>
+      <button *ngFor="let age of ages"  id="{{age}}" type="button" class="btn btn-secondary" (click)="getByAgeFilter(age)"
+        [innerText]="age"></button>
     </div>
 
     <div class="range-filter-div">
       <h2 class="border-bottom border-gray pb-2 mb-0">Costs</h2>
-    <div class="filter-range">
-      <label class="switch">
-        <input type="checkbox" checked (change)="filterCheck('wood')">
-        <span class="slider round"></span>
-      </label>
-      <span class="range-span">Wood</span>
-      <input type="range" class="input-range" #ranger id="vol" name="vol" min="0" max="200"
-        (change)="getByCostWoodFilter(ranger.value)" [disabled]="!woodFilter" >
-      <span class="range-span" id="rangevalue"> Value: <span class="range-span" id="valuer">{{ranger.value}}</span></span>
-    </div>
 
-    <div class="filter-range">
-      <label class="switch">
-        <input type="checkbox" [checked]="foodFilter" (change)="filterCheck('food')">
-        <span class="slider round"></span>
-      </label>      <span class="range-span">Food</span>
-      <input type="range" class="input-range" #ranger1 id="vol" name="vol" min="0" max="200"
-        (change)="getByCostFoodFilter(ranger1.value)" [disabled]="!foodFilter">
-      <span class="range-span" id="rangevalue1"> Value: <span class="range-span" id="valuer1">{{ranger1.value}}</span></span>
-    </div>
-
-    <div class="filter-range">
-      <label class="switch">
-        <input type="checkbox" [checked]="goldFilter" (change)="filterCheck('gold')">
-        <span class="slider round"></span>
-      </label>      <span class="range-span">Gold</span>
-      <input type="range" class="input-range" #ranger2 id="vol" name="vol" min="0" max="200"
-        (change)="getByCostGoldFilter(ranger2.value)" [disabled]="!goldFilter">
-      <span class="range-span" id="rangevalue2"> Value: <span class="range-span" id="valuer2">{{ranger2.value}}</span></span>
-    </div>
+      <div class="filter-range" *ngFor="let cost of costs">
+        <label class="switch">
+          <input type="checkbox" [checked]="cost?.isActive" (change)="switch(cost)">
+          <span class="slider round"></span>
+        </label>
+        <span class="range-span" [innerText]="cost?.title"></span>
+        <input type="range" class="input-range" #ranger id="{{cost.title}}" name="{{cost.title}}" min="0" max="200"
+          (change)="cost.val = ranger.value;getByCost(cost)" [disabled]="!cost?.isActive">
+        <span class="range-span" id="rangevalue"> Value: <span class="range-span"
+            id="valuer">0-{{ranger.value}}</span></span>
+      </div>
     </div>
 
     <h2 class="border-bottom border-gray pb-2 mb-0">Units</h2>
@@ -63,7 +42,7 @@
           <tr *ngFor="let item of units" routerLink="/unit-detail/{{item.id}}">
             <th scope="row">{{item.id}}</th>
             <td>{{item.name}}</td>
-            <td>{{item.age}}</td>
+            <td name="ageName">{{item.age}}</td>
             <td>
               <ul *ngIf="item?.cost !== null">
                 <li *ngIf="item?.cost?.Wood">Wood : {{item?.cost?.Wood}}</li>
@@ -78,7 +57,4 @@
     </div>
 
   </div>
-
-
-
 </div>
