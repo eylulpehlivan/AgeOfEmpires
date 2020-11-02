@@ -20,6 +20,12 @@ export class CharacterService {
   getAllCharacter() {
     return this.http.get(environment.apiUrl).pipe(map((p: any) => p.units));
   }
+  getCharacterById(id : number){
+    return this.getAllCharacter().pipe(map(p => {
+      return p.find(unit => unit.id === id);
+    }));
+  }
+ 
 
   getCharacterByFilter(filter: any) {
     let data: any[];

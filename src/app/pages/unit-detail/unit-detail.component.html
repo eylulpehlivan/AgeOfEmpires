@@ -11,62 +11,62 @@
         <div class="media text-muted pt-3">
 
             <table class="table table-striped table-dark table-hover">
-                <thead *ngFor="let item of UnitDetail">
+                <thead >
                     <tr>
                         <th scope="col">ID :</th>
-                        <th scope="col">{{item?.id}}</th>
+                        <th scope="col">{{unit?.id}}</th>
                     </tr>
                     <tr>
                         <th scope="col">Name : </th>
-                        <th scope="col">{{item?.name}}</th>
+                        <th scope="col">{{unit?.name}}</th>
                     </tr>
                     <tr>
                         <th scope="col">Description : </th>
-                        <th scope="col">{{item?.description}}</th>           
+                        <th scope="col">{{unit?.description}}</th>           
                     </tr>
                     <tr>
                         <th scope="col">Min. Required Age : </th>
-                        <th scope="col">{{item?.age}}</th>
+                        <th scope="col">{{unit?.age}}</th>
                     </tr>
                     <tr>                   
                         <th scope="col">Wood : </th>
-                        <th *ngIf="item?.cost?.Wood" scope="col">Wood : {{item?.cost?.Wood}} </th>
-                        <th *ngIf="!item?.cost?.Wood">-</th>
+                        <th *ngIf="unit?.cost?.Wood" scope="col"> {{unit?.cost?.Wood}} </th>
+                        <th *ngIf="!unit?.cost?.Wood">-</th>
                     </tr>
                     <tr>                   
                         <th scope="col">Food : </th>
-                        <th *ngIf="item?.cost?.Food" scope="col">Wood : {{item?.cost?.Food}} </th>
-                        <th *ngIf="!item?.cost?.Food">-</th>
+                        <th *ngIf="unit?.cost?.Food" scope="col"> {{unit?.cost?.Food}} </th>
+                        <th *ngIf="!unit?.cost?.Food">-</th>
                     </tr>
                     <tr>                   
                         <th scope="col">Gold : </th>
-                        <th *ngIf="item?.cost?.Gold" scope="col">Wood : {{item?.cost?.Gold}} </th>
-                        <th *ngIf="!item?.cost?.Gold">-</th>
+                        <th *ngIf="unit?.cost?.Gold" scope="col"> {{unit?.cost?.Gold}} </th>
+                        <th *ngIf="!unit?.cost?.Gold">-</th>
                     </tr>
                     <tr>
                         <th  scope="col">Build Time : </th>
-                        <th *ngIf="item?.build_time" scope="col">{{item?.build_time}}</th>
-                        <th *ngIf="!item?.build_time" scope="col">-</th>
+                        <th *ngIf="unit?.build_time" scope="col">{{unit?.build_time}}</th>
+                        <th *ngIf="!unit?.build_time" scope="col">-</th>
                     </tr>
                     <tr>
                         <th scope="col">Reload Time : </th>
-                        <th *ngIf="item?.reload_time" scope="col">{{item?.reload_time}}</th>
-                        <th *ngIf="!item?.reload_time" scope="col">-</th>
+                        <th *ngIf="unit?.reload_time" scope="col">{{unit?.reload_time}}</th>
+                        <th *ngIf="!unit?.reload_time" scope="col">-</th>
                     </tr>
                     <tr>
                         <th scope="col">Hit Points : </th>
-                        <th *ngIf="item?.hit_points" scope="col">{{item?.hit_points}}</th>
-                        <th *ngIf="!item?.hit_points" scope="col">-</th>
+                        <th *ngIf="unit?.hit_points" scope="col">{{unit?.hit_points}}</th>
+                        <th *ngIf="!unit?.hit_points" scope="col">-</th>
                     </tr>
                     <tr>
                         <th scope="col">Attack : </th>
-                        <th *ngIf="item?.attack" scope="col">{{item?.attack}}</th>
-                        <th *ngIf="!item?.attack" scope="col">-</th>
+                        <th *ngIf="unit?.attack" scope="col">{{unit?.attack}}</th>
+                        <th *ngIf="!unit?.attack" scope="col">-</th>
                     </tr>
                     <tr>
                         <th scope="col">Accuracy : </th>
-                        <th *ngIf="item?.accuracy" scope="col">{{item?.accuracy}}</th>
-                        <th *ngIf="!item?.accuracy" scope="col">-</th>
+                        <th *ngIf="unit?.accuracy" scope="col">{{unit?.accuracy}}</th>
+                        <th *ngIf="!unit?.accuracy" scope="col">-</th>
                     </tr>
                 </thead>
                 
